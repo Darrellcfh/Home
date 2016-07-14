@@ -14,12 +14,19 @@ public class Test {
        // nome=input activationFunction=TanH inputUnits=5
         String text = "nome=input activationFunction=TanH inputUnits=5";
 
+        ArrayList<String> arr=new ArrayList<>(Arrays.asList(text.split(" ")));
+        Pattern pattern = Pattern.compile("=([^<]+)");
 
-        Pattern pattern = Pattern.compile("=([^<]+)\\s");
-        Matcher matcher = pattern.matcher(text);
-        while(matcher.find()) {
-            System.out.println("Sottogruppo 1 : "+matcher.group(1));
+
+        for(int i=0;i<arr.size();i++){
+            Matcher matcher = pattern.matcher(arr.get(i));
+            while(matcher.find()) {
+                arr.remove(i);
+                arr.add (i,matcher.group(1));
+            }
         }
+
+        arr.stream().forEach(System.out::println);
 
 
     }
