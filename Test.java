@@ -1,42 +1,26 @@
-package it.test;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
-import java.util.HashMap;
-import java.util.Map;
-
+/**
+ * Created by antonio on 13/07/2016.
+ */
 public class Test {
+    public static void main(String[] args){
+//"<span>a</span>testo<span>b</span>altro testo<span>c</span>
+       // nome=input activationFunction=TanH inputUnits=5
+        String text = "nome=input activationFunction=TanH inputUnits=5";
 
-	static String string = "name=amtonio\nmateria=informatica\naaa=bbb";
-	
-	public static Map<String,String> regExp(String s){
-			
-			Map<String , String> m = new HashMap<>();
-			String pref = "";
-			String suff = "";
-			
-			boolean sep = false;
-			
-			for(int i=0; i<s.length() ; i++){
-				boolean end = false;
-				String c = s.charAt(i)+"";
-			//	System.out.println(pref +","+suff);
-				if(c.equals("=")) sep = true; 
-				else if( c.equals("\n") || s.length() -1 == i) { 
-					if(s.length() -1 == i){ suff+=c;}
-					m.put(pref, suff); pref=""; suff=""; sep=false; end = true;}
-				else if( sep && !c.equals("=") && !end) suff+=c;
-				else if( !sep && !c.equals("=") && !end) pref+=c;
-				
-			}
-			return m;
-		}
-	
-	public static void main(String[] args) {
-		
-		for( String s : regExp(string).keySet()){
-			System.out.println("key : "+s+" - value : "+regExp(string).get(s));
-		}
-		
-		
-	}
-		
+
+        Pattern pattern = Pattern.compile("=([^<]+)\\s");
+        Matcher matcher = pattern.matcher(text);
+        while(matcher.find()) {
+            System.out.println("Sottogruppo 1 : "+matcher.group(1));
+        }
+
+
+    }
 }
